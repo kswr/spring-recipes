@@ -2,6 +2,7 @@ package com.kswr.spring.recipes.springrecipes.domain;
 
 import javax.persistence.*;
 
+@Entity
 public class Notes {
 
     @Id
