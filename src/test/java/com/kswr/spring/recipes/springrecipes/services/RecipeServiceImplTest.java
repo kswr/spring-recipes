@@ -33,20 +33,21 @@ public class RecipeServiceImplTest {
     public void getRecipeByIdTest() {
         Optional<Recipe> optionalOfRecipe = Optional.of(recipe);
         when(recipeRepository.findById(anyLong())).thenReturn(optionalOfRecipe);
-        Recipe retrievedRecipe = recipeService.getRecipeById(recipe.getId());
+        Recipe retrievedRecipe = recipeService.findById(recipe.getId());
 
         assertEquals(recipe.getId(), retrievedRecipe.getId());
+        assertNotNull("Null recipe returned", retrievedRecipe);
         verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, never()).findAll();
     }
 
     @Test
     public void getRecipesTest() {
-
         Set<Recipe> recipesData = new HashSet<>();
         recipesData.add(recipe);
         when(recipeRepository.findAll()).thenReturn(recipesData);
-
         Set<Recipe> recipes = recipeService.getRecipes();
+
         assertEquals(1, recipes.size());
         verify(recipeRepository, times(1)).findAll();
         verify(recipeRepository, never()).findById(anyLong());
