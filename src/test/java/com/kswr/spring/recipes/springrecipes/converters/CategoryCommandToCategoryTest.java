@@ -32,6 +32,7 @@ public class CategoryCommandToCategoryTest {
 
     @Test
     public void testConversion() {
+        // todo refactor to 2 separate tests
         // given
         CategoryCommand categoryCommand = new CategoryCommand();
         categoryCommand.setId(ID_VALUE);

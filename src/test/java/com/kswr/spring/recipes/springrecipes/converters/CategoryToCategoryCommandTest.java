@@ -33,6 +33,7 @@ public class CategoryToCategoryCommandTest {
 
     @Test
     public void testConversion() {
+        // todo refactor to 2 separate tests
         Category category = new Category();
         category.setId(ID);
         category.setDescription(DESCRIPTION_VALUE);
