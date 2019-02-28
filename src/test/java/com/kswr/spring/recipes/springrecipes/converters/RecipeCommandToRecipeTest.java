@@ -20,7 +20,6 @@ import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-// TODO implement test
 public class RecipeCommandToRecipeTest {
 
     private RecipeCommandToRecipe converter;
@@ -135,7 +134,7 @@ public class RecipeCommandToRecipeTest {
     public void testConversionWithNullIngredients() {
         recipeCommand.setIngredients(null);
         assertEquals(0,converter.convert(recipeCommand).getIngredients().size());
-        verify(ingredientConverter, never());
+        verify(ingredientConverter, never()).convert(any(IngredientCommand.class));
     }
 
     @Test
