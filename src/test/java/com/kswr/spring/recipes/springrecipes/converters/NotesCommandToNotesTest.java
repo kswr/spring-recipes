@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-// TODO implement test
 public class NotesCommandToNotesTest {
 
     private NotesCommandToNotes converter;

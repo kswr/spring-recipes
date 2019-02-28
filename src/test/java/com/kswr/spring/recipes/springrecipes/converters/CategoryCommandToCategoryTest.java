@@ -9,40 +9,36 @@ import static org.junit.Assert.*;
 
 public class CategoryCommandToCategoryTest {
 
-    public static final Long ID_VALUE = 1L;
-    public static final String DESCRIPTION = "description";
-    CategoryCommandToCategory converter;
+    private CategoryCommandToCategory converter;
+    private CategoryCommand categoryCommand;
+    private static final Long ID_VALUE = 1L;
+    private static final String DESCRIPTION = "CategoryCommand test description";
 
     @Before
     public void setUp() {
         converter = new CategoryCommandToCategory();
+        categoryCommand = new CategoryCommand();
+        categoryCommand.setId(ID_VALUE);
+        categoryCommand.setDescription(DESCRIPTION);
     }
 
     @Test
-    public void testNullObject() {
+    public void testConversionNull() {
         assertNull(converter.convert(null));
     }
 
     @Test
-    public void testEmptyObject() {
+    public void testConversionNotNull() {
         assertNotNull(converter.convert(new CategoryCommand()));
     }
 
-
-
     @Test
     public void testConversion() {
-        // todo refactor to 2 separate tests
-        // given
-        CategoryCommand categoryCommand = new CategoryCommand();
-        categoryCommand.setId(ID_VALUE);
-        categoryCommand.setDescription(DESCRIPTION);
+        assertEquals(ID_VALUE, converter.convert(categoryCommand).getId());
+    }
 
-        // when
-        Category category = converter.convert(categoryCommand);
-
-        // then
-        assertEquals(ID_VALUE, category.getId());
-        assertEquals(DESCRIPTION, category.getDescription());
+    @Test
+    public void testConversionDescription() {
+        assertEquals(DESCRIPTION, converter.convert(categoryCommand).getDescription());
     }
 }
