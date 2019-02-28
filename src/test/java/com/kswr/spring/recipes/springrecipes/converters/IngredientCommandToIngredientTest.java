@@ -54,7 +54,6 @@ public class IngredientCommandToIngredientTest {
 
     @Test
     public void testNullObject() {
-        // then
         assertNull(converter.convert(null));
         verify(uomConverter,never()).convert(any());
     }
@@ -64,13 +63,6 @@ public class IngredientCommandToIngredientTest {
         IngredientCommand ingredientCommand = new IngredientCommand();
         assertNotNull(converter.convert(ingredientCommand));
         verify(uomConverter,times(1)).convert(any());
-
-    }
-
-    @Test
-    public void testConversionNotNull() {
-        Ingredient ingredient = converter.convert(ingredientCommand);
-        assertNotNull(ingredient);
 
     }
 
