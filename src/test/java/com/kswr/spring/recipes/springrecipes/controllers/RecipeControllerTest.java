@@ -69,7 +69,7 @@ public class RecipeControllerTest {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "")
                 .param("description", "Test description"))
-                .andExpect(view().name("redirect:/recipe/show/2"));
+                .andExpect(view().name("redirect:/recipe/2/show"));
     }
 
     @Test
@@ -88,5 +88,17 @@ public class RecipeControllerTest {
     public void testGetUpdateRecipeAttributeExists() throws Exception {
         mockMvc.perform(get("/recipe/1/update"))
                 .andExpect(model().attributeExists("recipe"));
+    }
+
+    @Test
+    public void testDeleteStatus() throws Exception {
+        mockMvc.perform(get("/recipe/1/delete"))
+                .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    public void testDeleteViewName() throws Exception {
+        mockMvc.perform(get("/recipe/1/delete"))
+                .andExpect(view().name("redirect:/"));
     }
 }

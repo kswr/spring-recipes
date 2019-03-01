@@ -22,6 +22,7 @@ public class RecipeServiceImplTest {
     private Recipe recipe;
     private Optional<Recipe> optionalOfRecipe;
     private Set<Recipe> recipesData;
+    private final static Long ID = 1L;
 
     @Mock
     private RecipeRepository recipeRepository;
@@ -55,5 +56,11 @@ public class RecipeServiceImplTest {
     public void testGetAllRecipes() {
         assertEquals(1, recipeService.getRecipes().size());
         verify(recipeRepository, times(1)).findAll();
+    }
+
+    @Test
+    public void testDeleteById() throws Exception {
+        recipeService.deleteById(ID);
+        verify(recipeRepository, times(1)).deleteById(ID);
     }
 }
