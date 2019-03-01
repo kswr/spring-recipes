@@ -17,11 +17,11 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class RecipeServiceImplTest {
-    // todo add tests for saving
 
     private RecipeServiceImpl recipeService;
-
-    private static final Recipe recipe = Recipe.builder().id(1L).description("Nice recipe").build();
+    private Recipe recipe;
+    private Optional<Recipe> optionalOfRecipe;
+    private Set<Recipe> recipesData;
 
     @Mock
     private RecipeRepository recipeRepository;
@@ -36,31 +36,24 @@ public class RecipeServiceImplTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
-    }
-
-    @Test
-    public void getRecipeByIdTest() {
-        // todo refactor to separate tests
-        Optional<Recipe> optionalOfRecipe = Optional.of(recipe);
-        when(recipeRepository.findById(anyLong())).thenReturn(optionalOfRecipe);
-        Recipe retrievedRecipe = recipeService.findById(recipe.getId());
-
-        assertEquals(recipe.getId(), retrievedRecipe.getId());
-        assertNotNull("Null recipe returned", retrievedRecipe);
-        verify(recipeRepository, times(1)).findById(anyLong());
-        verify(recipeRepository, never()).findAll();
-    }
-
-    @Test
-    public void getRecipesTest() {
-        // todo refactor to separate tests
-        Set<Recipe> recipesData = new HashSet<>();
+        recipe = Recipe.builder().id(1L).description("Nice recipe").build();
+        optionalOfRecipe = Optional.of(recipe);
+        recipesData = new HashSet<>();
         recipesData.add(recipe);
+        when(recipeRepository.findById(anyLong())).thenReturn(optionalOfRecipe);
         when(recipeRepository.findAll()).thenReturn(recipesData);
-        Set<Recipe> recipes = recipeService.getRecipes();
+    }
 
-        assertEquals(1, recipes.size());
+    @Test
+    public void testGetRecipeById() {
+        Recipe retrievedRecipe = recipeService.findById(recipe.getId());
+        assertEquals(recipe.getId(), retrievedRecipe.getId());
+        verify(recipeRepository, times(1)).findById(anyLong());
+    }
+
+    @Test
+    public void testGetAllRecipes() {
+        assertEquals(1, recipeService.getRecipes().size());
         verify(recipeRepository, times(1)).findAll();
-        verify(recipeRepository, never()).findById(anyLong());
     }
 }
